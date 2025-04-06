@@ -229,14 +229,16 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	}
 
 	cmd = exec.Command("systemctl", "enable", "deployment-manager-daemon")
-	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error enabling systemd service: %v\n", err)
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error enabling systemd service: %s\n", string(output))
 		return
 	}
 
 	cmd = exec.Command("systemctl", "start", "deployment-manager-daemon")
-	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error starting systemd service: %v\n", err)
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error starting systemd service: %s\n", string(output))
 		return
 	}
 

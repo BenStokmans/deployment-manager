@@ -86,7 +86,16 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 
 	tmpDir := cacheDir + "/deployment-manager"
 
-	// Create the directory if it doesn't exist
+	// remove existing directory
+	if _, err := os.Stat(tmpDir); err == nil {
+		cmd := exec.Command("rm", "-rf", tmpDir)
+		if err := cmd.Run(); err != nil {
+			fmt.Printf("Error removing existing directory: %v\n", err)
+			return
+		}
+	}
+
+	// Create the directory
 	if err := os.MkdirAll(tmpDir, 0755); err != nil {
 		fmt.Printf("Error creating directory: %v\n", err)
 		return

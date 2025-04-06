@@ -27,15 +27,15 @@ func main() {
 		return
 	}
 
-	var config deployment_manager.Config
-	if err := yaml.Unmarshal(content, &config); err != nil {
+	var config *deployment_manager.Config
+	if err := yaml.Unmarshal(content, config); err != nil {
 		fmt.Printf("Error unmarshalling YAML: %v\n", err)
 		return
 	}
 
 	CheckRoot()
 
-	InstallLatestDaemon(&config)
+	InstallLatestDaemon(config)
 }
 
 func CheckRoot() {

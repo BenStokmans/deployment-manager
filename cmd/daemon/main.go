@@ -22,6 +22,12 @@ func main() {
 		fmt.Printf("Error unmarshalling YAML: %v\n", err)
 		return
 	}
+	if config.ApiUrl == "" {
+		fmt.Println("API URL is not set in the config file.")
+		return
+	}
+
+	fmt.Printf("API URL: %s\n", config.ApiUrl)
 	daemon := api.NewDeploymentApi(config)
 	if err := daemon.Start(); err != nil {
 		fmt.Printf("Error starting daemon: %v\n", err)

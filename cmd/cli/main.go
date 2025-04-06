@@ -215,10 +215,9 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	}
 
 	// install systemctl service
-	cmd = exec.Command("bash", "-c", fmt.Sprintf("echo '%s' > /etc/systemd/system/deployment-manager-daemon.service", serviceString))
-	output, err = cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Error installing systemd service: %s\n", string(output))
+	targetPath := "/etc/systemd/system/deployment-manager-daemon.service"
+	if err := os.WriteFile(targetPath, []byte(serviceString), 0644); err != nil {
+		fmt.Printf("Error writing systemd service file: %v\n", err)
 		return
 	}
 

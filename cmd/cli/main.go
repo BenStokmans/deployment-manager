@@ -71,9 +71,9 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	// Add logic to build the latest daemon here
 	fmt.Println("Building the latest daemon...")
 
-	// check whether go is installed
-	if _, err := exec.LookPath("go"); err != nil {
-		fmt.Println("Go is not installed. Please install Go and try again.")
+	originalDir, err := os.Getwd()
+	if err != nil {
+		fmt.Printf("Error getting current directory: %v\n", err)
 		return
 	}
 
@@ -100,14 +100,14 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 		return
 	}
 
-	err = os.Chdir(tmpDir)
+	err = os.Chdir(tmpDir + "/deployment-manager/cmd/daemon")
 	if err != nil {
 		fmt.Printf("Error changing directory: %v\n", err)
 		return
 	}
 
 	// Build the daemon
-	cmd = exec.Command("go", "build", "cmd/daemon", "-o", "daemon")
+	cmd = exec.Command("go", "build", "-o", "daemon")
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("Error building daemon: %v\n", err)
 		return
@@ -229,6 +229,12 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 		return
 	}
 
+	fmt.Println("Daemon installed successfully.")
+	// change back to original directory
+	if err := os.Chdir(originalDir); err != nil {
+		fmt.Printf("Error changing back to original directory: %v\n", err)
+		return
+	}
 }
 
 func CreateToken() (string, error) {

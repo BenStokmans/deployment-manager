@@ -117,7 +117,7 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	}
 
 	// Build the daemon
-	cmd = exec.Command("go", "build", "-o", "daemon")
+	cmd = exec.Command("/usr/local/go/bin/go", "build", "-o", "daemon")
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("Error building daemon: %v\n", err)
 		return

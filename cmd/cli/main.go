@@ -97,7 +97,7 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	cmd.Dir = tmpDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Error cloning repository: %v\n", output)
+		fmt.Printf("Error cloning repository: %s\n", string(output))
 		return
 	}
 

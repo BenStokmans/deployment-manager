@@ -95,8 +95,9 @@ func InstallLatestDaemon(config *deployment_manager.Config) {
 	// Clone the repository
 	cmd := exec.Command("git", "clone", repoLink)
 	cmd.Dir = tmpDir
-	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error cloning repository: %v\n", err)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error cloning repository: %v\n", output)
 		return
 	}
 

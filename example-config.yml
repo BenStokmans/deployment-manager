@@ -1,0 +1,9 @@
+api_url: "https://api.example.com"
+deployments:
+    - name: deployment-1
+      commands:
+        - "echo 'Hello, World!'"
+target:
+    - name: target-1
+      commands:
+        - "cd target-1/location"

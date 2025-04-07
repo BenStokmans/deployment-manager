@@ -118,7 +118,7 @@ func (d *DeploymentApi) DoDeploy(name, targetName string) DeploymentResult {
 
 	logrus.Infof("deployment %s completed", deployment.Name)
 	return DeploymentResult{
-		Deployment: deployment,
+		Deployment: &deployment,
 		Status:     DeploymentStatusCompleted,
 		Logs:       targetLogs + "\n" + deploymentLogs,
 	}

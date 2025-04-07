@@ -155,7 +155,17 @@ func InstallLatestDaemon(config deployment_manager.Config) {
 
 	// install config file
 	configDir := "/etc/deployment-manager"
-	// Create the directory if it doesn't exist
+
+	// remove existing config directory
+	if _, err := os.Stat(configDir); err == nil {
+		cmd = exec.Command("rm", "-rf", configDir)
+		if err := cmd.Run(); err != nil {
+			fmt.Printf("Error removing existing config directory: %v\n", err)
+			return
+		}
+	}
+
+	// Create the directory
 	if err := os.MkdirAll(configDir, 0755); err != nil {
 		fmt.Printf("Error creating config directory: %v\n", err)
 		return

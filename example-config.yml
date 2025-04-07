@@ -1,4 +1,4 @@
-api_url: "https://api.example.com"
+api_url: ":8080"
 deployments:
     - name: deployment-1
       commands:

@@ -21,14 +21,14 @@ func main() {
 		return
 	}
 
-	var content []byte
-	if _, err := os.ReadFile(*fileFlag); err != nil {
+	content, err := os.ReadFile(*fileFlag)
+	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return
 	}
 
-	var config *deployment_manager.Config
-	if err := yaml.Unmarshal(content, config); err != nil {
+	var config deployment_manager.Config
+	if err := yaml.Unmarshal(content, &config); err != nil {
 		fmt.Printf("Error unmarshalling YAML: %v\n", err)
 		return
 	}
@@ -67,7 +67,7 @@ NoNewPrivileges=false  # Allow privileged operations since we're running as root
 [Install]
 WantedBy=multi-user.target`
 
-func InstallLatestDaemon(config *deployment_manager.Config) {
+func InstallLatestDaemon(config deployment_manager.Config) {
 	// Add logic to build the latest daemon here
 	fmt.Println("Building the latest daemon...")
 

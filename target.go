@@ -4,9 +4,9 @@ import "os/exec"
 
 type Target struct {
 	// The name of the target
-	Name string `json:"name" yaml:"name"`
+	Name string `yaml:"name"`
 	// The commands to run for the target
-	Commands []string `json:"commands" yaml:"commands"`
+	Commands []string `yaml:"commands"`
 }
 
 func (t *Target) Execute() (string, error) {

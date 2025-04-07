@@ -11,14 +11,14 @@ import (
 const filePath = "/etc/deployment-manager/config.yaml"
 
 func main() {
-	var content []byte
-	if _, err := os.ReadFile(filePath); err != nil {
+	content, err := os.ReadFile(filePath)
+	if err != nil {
 		fmt.Printf("Error reading config file: %v\n", err)
 		return
 	}
 
 	var config deployment_manager.Config
-	if err := yaml.Unmarshal(content, &config); err != nil {
+	if err = yaml.Unmarshal(content, &config); err != nil {
 		fmt.Printf("Error unmarshalling YAML: %v\n", err)
 		return
 	}

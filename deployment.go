@@ -4,9 +4,9 @@ import "os/exec"
 
 type Deployment struct {
 	// The name of the deployment
-	Name string `json:"name" yaml:"name"`
+	Name string `yaml:"name"`
 	// The commands to run for the deployment
-	Commands []string `json:"commands" yaml:"commands"`
+	Commands []string `yaml:"commands"`
 }
 
 func (d *Deployment) Execute() (string, error) {
